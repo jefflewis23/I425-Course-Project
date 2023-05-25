@@ -12,4 +12,10 @@ Class RecipeCuisineController{
         $results = RecipeCuisine::getRecipeCuisines();
         return Helper::withJson($response, $results, 200);
     }
+
+    //View a specific class by section number
+    public function view(Request $request, Response $response, array $args) : Response {
+        $results = RecipeCuisine::getRecipeCuisineByID($args['recipe_cuisine_id']);
+        return Helper::withJson($response, $results, 200);
+    }
 }

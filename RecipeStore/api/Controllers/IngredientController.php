@@ -12,4 +12,10 @@ Class IngredientController{
         $results = Ingredient::getIngredients();
         return Helper::withJson($response, $results, 200);
     }
+
+    //View a specific class by section number
+    public function view(Request $request, Response $response, array $args) : Response {
+        $results = Ingredient::getIngredientByID($args['ingredient_id']);
+        return Helper::withJson($response, $results, 200);
+    }
 }

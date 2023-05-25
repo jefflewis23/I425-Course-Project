@@ -12,4 +12,10 @@ Class CategoryController{
         $results = Category::getCategories();
         return Helper::withJson($response, $results, 200);
     }
+
+    //View a specific class by section number
+    public function view(Request $request, Response $response, array $args) : Response {
+        $results = Category::getCategoryByID($args['category_id']);
+        return Helper::withJson($response, $results, 200);
+    }
 }

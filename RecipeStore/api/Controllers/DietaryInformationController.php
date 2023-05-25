@@ -12,4 +12,10 @@ Class DietaryInformationController{
         $results = DietaryInformation::getDietaryInformations();
         return Helper::withJson($response, $results, 200);
     }
+
+    //View a specific class by section number
+    public function view(Request $request, Response $response, array $args) : Response {
+        $results = DietaryInformation::getDietaryInformationByID($args['dietary_recipe_id']);
+        return Helper::withJson($response, $results, 200);
+    }
 }
