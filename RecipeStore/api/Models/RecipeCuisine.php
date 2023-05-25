@@ -5,7 +5,7 @@
 namespace RecipeStore\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class RecipeCuisine extends Model{
+Class RecipeCuisine extends Model {
 
     //The table associated with this model
     protected $table = 'recipeCuisine';

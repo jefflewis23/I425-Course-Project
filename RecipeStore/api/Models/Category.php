@@ -5,7 +5,7 @@
 namespace RecipeStore\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class Category extends Model{
+Class Category extends Model {
 
     //The table associated with this model
     protected $table = 'category';
@@ -23,7 +23,6 @@ Class Category extends Model{
     public function recipe() {
         return $this->belongsToMany(Recipe::class, 'RecipeCategory', 'recipe_id', 'category_id');
     }
-
 
 
     //Retrieve all cuisines

@@ -67,7 +67,7 @@ Class Recipe extends Model{
         $recipes = self::with('recipe_id')->get();
         return $recipes;
     }
-    //View a specific professor by id
+    //View a specific cuisine by id
     public static function getCuisinesByID(string $id) {
         $recipes = self::findOfFail($id);
         $recipes->load('recipe_id');
