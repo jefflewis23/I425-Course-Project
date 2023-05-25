@@ -19,4 +19,5 @@ Class Recipe extends Model{
     public $timestamps = false;
 
 
+
 };
