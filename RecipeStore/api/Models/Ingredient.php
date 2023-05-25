@@ -22,19 +22,19 @@ Class Ingredient extends Model{
     // Define the one to many relationship between Cuisine and RecipeCuisine model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function ingredients() {
-        return $this->hasMany(Ingredient::class, 'ingredient_id');
+        return $this->hasMany(RecipeIngredient::class, 'ingredient_id');
     }
 
     //Retrieve all cuisines
     public static function getIngredients() {
 //Retrieve all cuisines
-        $ingredients = self::with('ingredients_id')->get();
+        $ingredients = self::with('ingredient_id')->get();
         return $ingredients;
     }
     //View a specific professor by id
     public static function getIngredientsByID(string $id) {
         $ingredients = self::findOfFail($id);
-        $ingredients->load('ingredients_id');
+        $ingredients->load('ingredient_id');
         return $ingredients;
     }
 

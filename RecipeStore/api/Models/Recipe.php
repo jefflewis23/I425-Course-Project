@@ -18,6 +18,40 @@ Class Recipe extends Model{
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
 
+    // Define the one to many relationship between Recipe and RecipeCuisine model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function RecipeCuisine() {
+        return $this->hasMany(RecipeCuisine::class, 'recipe_id');
+    }
+    // Define the one to many relationship between Recipe and RecipeCategory model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function RecipeCategory() {
+        return $this->hasMany(RecipeCategory::class, 'recipe_id');
+    }
+    // Define the one to many relationship between Recipe and RecipeIngredient model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function RecipeIngredient() {
+        return $this->hasMany(RecipeIngredient::class, 'recipe_id');
+    }
+    // Define the one to many relationship between Recipe and RecipeDietary model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function RecipeDietary() {
+        return $this->hasMany(RecipeDietary::class, 'recipe_id');
+    }
+
+
+    //Retrieve all cuisines
+    public static function getRecipes() {
+//Retrieve all cuisines
+        $recipes = self::with('recipe_id')->get();
+        return $recipes;
+    }
+    //View a specific professor by id
+    public static function getCuisinesByID(string $id) {
+        $recipes = self::findOfFail($id);
+        $recipes->load('recipe_id');
+        return $recipes;
+    }
 
 
 };

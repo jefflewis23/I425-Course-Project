@@ -22,7 +22,7 @@ Class Cuisine extends Model{
     // Define the one to many relationship between Cuisine and RecipeCuisine model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function cuisines() {
-        return $this->hasMany(cuisines::class, 'cuisine_id');
+        return $this->hasMany(RecipeCuisine::class, 'cuisine_id');
     }
 
     //Retrieve all cuisines

@@ -18,6 +18,26 @@ Class Category extends Model{
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
 
+    // Define the one to many relationship between Recipe and RecipeCuisine model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function RecipeCategory() {
+        return $this->hasMany(RecipeCategory::class, 'category_id');
+    }
+
+
+
+    //Retrieve all cuisines
+    public static function getCategories() {
+//Retrieve all cuisines
+        $categories = self::with('category_id')->get();
+        return $categories;
+    }
+    //View a specific professor by id
+    public static function getCategoryByID(string $id) {
+        $category = self::findOfFail($id);
+        $category->load('category_id');
+        return $category;
+    }
 
 };
 
