@@ -18,10 +18,10 @@ Class Category extends Model {
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
 
-    // Define the many to many relationship between Recipe and Category model classes
+    // Define the one to many relationship(inverse) between Recipe and Category model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function recipe() {
-        return $this->belongsToMany(Recipe::class, 'RecipeCategory', 'recipe_id', 'category_id');
+        return $this->hasMany(Recipe::class, 'category_id');
     }
 
 

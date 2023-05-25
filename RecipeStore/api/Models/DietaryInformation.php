@@ -18,20 +18,21 @@ Class DietaryInformation extends Model {
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
 
-    // Define the one to many relationship between Cuisine and RecipeCuisine model classes
+
+    // Define the many to many relationship between Recipe and Category model classes
 // The first para is the model class name; the second parameter is the foreign key.
-    public function cuisines() {
-        return $this->hasMany(RecipeDietary::class, 'dietaryInformation_id');
+    public function recipe() {
+        return $this->belongsToMany(Recipe::class, 'recipeDietary', 'recipe_id', 'dietary_id');
     }
 
-    //Retrieve all cuisines
-    public static function getCuisines() {
+    //Retrieve all dietary types
+    public static function getDietary() {
 //Retrieve all cuisines
         $dietary = self::with('dietaryInformation_id')->get();
         return $dietary;
     }
     //View a specific professor by id
-    public static function getCuisinesByID(string $id) {
+    public static function getDietaryByID(string $id) {
         $dietary = self::findOfFail($id);
         $dietary->load('dietaryInformation_id');
         return $dietary;

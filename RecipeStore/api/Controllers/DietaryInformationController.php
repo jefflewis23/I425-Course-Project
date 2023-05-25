@@ -9,13 +9,13 @@ use RecipeStore\Models\DietaryInformation;
 Class DietaryInformationController{
     //Retrieve all the classes
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = DietaryInformation::getDietaryInformations();
+        $results = DietaryInformation::getDietary();
         return Helper::withJson($response, $results, 200);
     }
 
     //View a specific class by section number
     public function view(Request $request, Response $response, array $args) : Response {
-        $results = DietaryInformation::getDietaryInformationByID($args['dietary_recipe_id']);
+        $results = DietaryInformation::getDietaryByID($args['dietary_recipe_id']);
         return Helper::withJson($response, $results, 200);
     }
 }

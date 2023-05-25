@@ -21,25 +21,24 @@ Class Recipe extends Model{
     // Define the many to many relationship between Recipe and Cuisine model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function cuisine() {
-        return $this->belongsToMany(Cuisine::class, 'RecipeCuisine', 'recipe_id', 'cuisine_id');
+        return $this->belongsToMany(Cuisine::class, 'recipeCuisine', 'recipe_id', 'cuisine_id');
     }
 
     // Define the many to many relationship between Recipe and Ingredient model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function ingredient() {
-        return $this->belongsToMany(Ingredient::class, 'RecipeIngredient', 'ingredient_id', 'cuisine_id');
+        return $this->belongsToMany(Ingredient::class, 'recipeIngredient', 'ingredient_id', 'cuisine_id');
     }
 
     // Define the many to many relationship between Recipe and DietaryInformation model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function dietary() {
-        return $this->belongsToMany(DietaryInformation::class, 'RecipeDietary', 'dietary_id', 'cuisine_id');
+        return $this->belongsToMany(DietaryInformation::class, 'recipeDietary', 'dietary_id', 'cuisine_id');
     }
 
-    // Define the many to many relationship between Recipe and Category model classes
-// The first para is the model class name; the second parameter is the foreign key.
+// Define the one to many (inverse) relationship between Category and Recipe
     public function category() {
-        return $this->belongsToMany(Category::class, 'RecipeCategory', 'category_id', 'cuisine_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
 
