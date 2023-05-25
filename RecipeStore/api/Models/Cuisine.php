@@ -31,11 +31,16 @@ Class Cuisine extends Model{
         $cuisines = self::with('cuisine_id')->get();
         return $cuisines;
     }
-    //View a specific professor by id
+    //View a specific cuisine by id
     public static function getCuisinesByID(string $id) {
         $cuisines = self::findOfFail($id);
         $cuisines->load('cuisine_id');
         return $cuisines;
+    }
+
+    //define one-to-many cuisines to categories
+    public function categories() {
+        return $this->hasMany(Category::getCategories(), 'cuisine_id');
     }
 
 };
