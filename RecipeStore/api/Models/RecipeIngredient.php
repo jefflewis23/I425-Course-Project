@@ -19,7 +19,7 @@ Class RecipeIngredient extends Model {
     public $timestamps = false;
 
 
-    
+
 
 
 };
