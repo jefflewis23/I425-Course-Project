@@ -45,6 +45,5 @@ $errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 // Add eloquent
 (require __DIR__ . '/eloquent.php')($container);
 
-
 // Return the app
 return $app;

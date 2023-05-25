@@ -5,7 +5,7 @@
 namespace RecipeStore\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class RecipeIngredient extends Model{
+Class RecipeIngredient extends Model {
 
     //The table associated with this model
     protected $table = 'recipeIngredient';
@@ -17,6 +17,9 @@ Class RecipeIngredient extends Model{
     protected $keyType = 'char';
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
+
+
+    
 
 
 };
