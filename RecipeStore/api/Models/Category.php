@@ -18,10 +18,10 @@ Class Category extends Model{
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
 
-    // Define the one to many relationship between Recipe and RecipeCuisine model classes
+    // Define the many to many relationship between Recipe and Category model classes
 // The first para is the model class name; the second parameter is the foreign key.
-    public function RecipeCategory() {
-        return $this->hasMany(RecipeCategory::class, 'category_id');
+    public function recipe() {
+        return $this->belongsToMany(Recipe::class, 'RecipeCategory', 'recipe_id', 'category_id');
     }
 
 

@@ -18,11 +18,32 @@ Class Recipe extends Model{
     //If the created_at and updated_at columns are not used
     public $timestamps = false;
 
-    // Define the one to many relationship between Recipe and RecipeCuisine model classes
+    // Define the many to many relationship between Recipe and Cuisine model classes
 // The first para is the model class name; the second parameter is the foreign key.
-    public function RecipeCuisine() {
-        return $this->hasMany(RecipeCuisine::class, 'recipe_id');
+    public function cuisine() {
+        return $this->belongsToMany(Cuisine::class, 'RecipeCuisine', 'recipe_id', 'cuisine_id');
     }
+
+    // Define the many to many relationship between Recipe and Ingredient model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function ingredient() {
+        return $this->belongsToMany(Ingredient::class, 'RecipeIngredient', 'ingredient_id', 'cuisine_id');
+    }
+
+    // Define the many to many relationship between Recipe and DietaryInformation model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function dietary() {
+        return $this->belongsToMany(DietaryInformation::class, 'RecipeDietary', 'dietary_id', 'cuisine_id');
+    }
+
+    // Define the many to many relationship between Recipe and Category model classes
+// The first para is the model class name; the second parameter is the foreign key.
+    public function category() {
+        return $this->belongsToMany(Category::class, 'RecipeCategory', 'category_id', 'cuisine_id');
+    }
+
+
+    /*
     // Define the one to many relationship between Recipe and RecipeCategory model classes
 // The first para is the model class name; the second parameter is the foreign key.
     public function RecipeCategory() {
@@ -39,7 +60,7 @@ Class Recipe extends Model{
         return $this->hasMany(RecipeDietary::class, 'recipe_id');
     }
 
-
+*/
     //Retrieve all cuisines
     public static function getRecipes() {
 //Retrieve all cuisines
