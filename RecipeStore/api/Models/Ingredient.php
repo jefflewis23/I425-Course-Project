@@ -5,7 +5,7 @@
 namespace RecipeStore\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class Ingredient extends Model{
+Class Ingredient extends Model {
 
     //The table associated with this model
     protected $table = 'ingredient';
@@ -25,18 +25,39 @@ Class Ingredient extends Model{
         return $this->belongsToMany(Recipe::class, 'recipeIngredient', 'recipe_id', 'ingredient_id');
     }
 
-    //Retrieve all cuisines
+    //Retrieve all ingredients
     public static function getIngredients() {
 //Retrieve all cuisines
         $ingredients = self::with('ingredient_id')->get();
         return $ingredients;
     }
-    //View a specific professor by id
+    //View a specific ingredient by id
     public static function getIngredientsByID(string $id) {
         $ingredients = self::findOfFail($id);
         $ingredients->load('ingredient_id');
         return $ingredients;
     }
+
+    //Insert a new ingredient
+    public static function createIngredient($request)
+    {
+        //retrieve parameters from request body
+        $params = $request->getParsedBody();
+
+        //create a new Ingredient instance
+        $ingredient = new Ingredient();
+
+        //set ingredient's attributes
+        foreach ($params as $field => $value) {
+            $ingredient->$field = $value;
+        }
+
+        //Insert into database
+        $ingredient->save();
+        return $ingredient;
+
+    }
+
 
 
 };

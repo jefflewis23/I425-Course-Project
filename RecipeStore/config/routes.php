@@ -49,6 +49,9 @@ return function (App $app) {
             //post method for creating new Recipes - AW
             $group->post('', 'Recipe:create');
 
+            //post method for creating new Ingredients - AW
+            $group->post('', 'Ingredient:create');
+
         });
 
 // Handle invalid routes

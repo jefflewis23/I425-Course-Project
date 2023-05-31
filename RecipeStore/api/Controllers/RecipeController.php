@@ -5,6 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use RecipeStore\Controllers\ControllerHelper as Helper;
 use RecipeStore\Models\Recipe;
+use RecipeStore\Validation\Validator;
 
 Class RecipeController{
     //Retrieve all the classes
