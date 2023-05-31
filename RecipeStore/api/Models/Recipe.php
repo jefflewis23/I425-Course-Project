@@ -3,9 +3,11 @@
 //Jon Ross Richardson
 
 namespace RecipeStore\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-Class Recipe extends Model{
+class Recipe extends Model
+{
 
     //The table associated with this model
     protected $table = 'recipe';
@@ -20,24 +22,28 @@ Class Recipe extends Model{
 
     // Define the many to many relationship between Recipe and Cuisine model classes
 // The first para is the model class name; the second parameter is the foreign key.
-    public function cuisine() {
+    public function cuisine()
+    {
         return $this->belongsToMany(Cuisine::class, 'recipeCuisine', 'recipe_id', 'cuisine_id');
     }
 
     // Define the many to many relationship between Recipe and Ingredient model classes
 // The first para is the model class name; the second parameter is the foreign key.
-    public function ingredient() {
+    public function ingredient()
+    {
         return $this->belongsToMany(Ingredient::class, 'recipeIngredient', 'ingredient_id', 'cuisine_id');
     }
 
     // Define the many to many relationship between Recipe and DietaryInformation model classes
 // The first para is the model class name; the second parameter is the foreign key.
-    public function dietary() {
+    public function dietary()
+    {
         return $this->belongsToMany(DietaryInformation::class, 'recipeDietary', 'dietary_id', 'cuisine_id');
     }
 
 // Define the one to many (inverse) relationship between Category and Recipe
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
@@ -61,17 +67,42 @@ Class Recipe extends Model{
 
 */
     //Retrieve all cuisines
-    public static function getRecipes() {
+    public static function getRecipes()
+    {
 //Retrieve all cuisines
         $recipes = self::with('recipe_id')->get();
         return $recipes;
     }
+
     //View a specific cuisine by id
-    public static function getCuisinesByID(string $id) {
+    public static function getCuisinesByID(string $id)
+    {
         $recipes = self::findOfFail($id);
         $recipes->load('recipe_id');
         return $recipes;
     }
 
+    //Insert a new recipe
+    public static function createRecipe($request)
+    {
+        //retrieve parameters from request body
+        $params = $request->getParsedBody();
 
-};
+        //create a new Recipe instance
+        $recipe = new Recipe();
+
+        //set Recipe's attributes
+        foreach ($params as $field => $value) {
+            $recipe->$field = $value;
+        }
+
+        //Insert into database
+        $recipe->save();
+        return $recipe;
+
+    }
+
+
+}
+
+;

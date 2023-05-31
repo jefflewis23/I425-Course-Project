@@ -13,13 +13,41 @@ Class RecipeController{
         return Helper::withJson($response, $results, 200);
     }
 
-    //View a specific class by section number
+    //View a specific recipe by ID
     public function view(Request $request, Response $response, array $args) : Response {
         $results = Recipe::getRecipeByID($args['recipe_id']);
         return Helper::withJson($response, $results, 200);
     }
 
-  
+    //Create a recipe
+    public function create(Request $request, Response $response, array $args) : Response {
+        //Validating the request
+        $validation = Validator::validateStudent($request);
+
+        if (!$validation) {
+            $results = [
+                'status' => "Validation failed",
+                'errors' => Validator::getErrors()
+            ];
+            return Helper::withJson($response, $results, 500);
+        }
+
+        //create a new recipe
+        $recipe = Recipe::createRecipe($request);
+
+        if (!$recipe) {
+            $results['status']= "Recipe cannot be created.";
+            return Helper::withJson($response, $results, 500);
+        }
+        $results = [
+            'status' => "Recipe has been created.",
+            'data' => $recipe
+        ];
+
+        return Helper::withJson($response, $results, 200);
+    }
+
+
 
 
 }

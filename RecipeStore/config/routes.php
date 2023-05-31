@@ -46,6 +46,9 @@ return function (App $app) {
                 $group->get('/{id}', 'RecipeCuisine:view');
             });
 
+            //post method for creating new Recipes - AW
+            $group->post('', 'Recipe:create');
+
         });
 
 // Handle invalid routes
