@@ -1,35 +1,25 @@
 <?php
 /**
- *Author: Allyson West
- *Date: 5/31/23
- *File: Validator.php
- *Description: creating Validator class
+ * Author: Derek Wright
+ * Date: 5/29/2023
+ * File: Validator.php
+ * Description: The Validator class defines methods that validate data of models.
  */
 
-namespace RecipeStore\Validation;
+namespace MyCollegeAPI\Validation;
 
 use Respect\Validation\Validator as v;
 use Respect\Validation\Exceptions\NestedValidationException;
 
-//creating the Validator class
-
-class Validator
-{
+class Validator {
     private static array $errors = [];
 
-    //return errors in array
-    public static function getErrors(): array
-    {
-        return self::$errors;
-    }
-
-    // A generic validation method. it returns true on success or false on failed validation.
-    public static function validate($request, array $rules): bool
-    {
+    // A generic validation method. It returns true on success or false on failed validation.
+    public static function validate($request, array $rules) : bool {
         foreach ($rules as $field => $rule) {
             //Retrieve parameters from URL or the request body
             $param = $request->getAttribute($field) ?? $request->getParsedBody()[$field];
-            try {
+            try{
                 $rule->setName($field)->assert($param);
             } catch (NestedValidationException $ex) {
                 self::$errors[$field] = $ex->getFullMessage();
@@ -39,9 +29,9 @@ class Validator
         return empty(self::$errors);
     }
 
-    //Validate Recipe data.
-    public static function validateRecipe($request) : bool {
-        //Define all the validation rules
+    //Validate student data.
+    public static function validateStudent($request) : bool {
+        //Define all the validation rules. Be sure you upgrade PhpStorm to the latest version 2021.3 or above.
         $rules = [
             'id' => v::notEmpty()->alnum()->startsWith('s')->length(5, 5),
             'name' => v::alnum(' '),
@@ -53,30 +43,8 @@ class Validator
         return self::validate($request, $rules);
     }
 
-    // Validate attributes of a User model. Do not validate fields having default values (id, created_at, and updated_at)
-    public static function validateUser($request) : bool {
-        $rules = [
-            'name' => v::alnum(' '),
-            'email' => v::email(),
-            'username' => v::notEmpty(),
-            'password' => v::notEmpty(),
-            'role' => v::number()->between(1, 4)
-        ];
-
-        return self::validate($request, $rules);
-    }
-
-    //Validate Ingredient data.
-    public static function validateIngredient($request) : bool {
-        //Define all the validation rules
-        $rules = [
-            'id' => v::notEmpty()->alnum()->startsWith('s')->length(5, 5),
-            'name' => v::alnum(' '),
-            'email' => v::email(),
-            'major' => v::alpha(' '),
-            'gpa' => v::numericVal()
-        ];
-
-        return self::validate($request, $rules);
+    //Return the errors in an array
+    public static function getErrors() : array {
+        return self::$errors;
     }
 }
