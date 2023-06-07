@@ -6,9 +6,21 @@ use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
+use RecipeStore\Authentication\MyAuthenticator;
+use RecipeStore\Authentication\BasicAuthenticator;
 
 
 return function (App $app) {
+
+    // User route group
+    $app->group('/api/v1/users', function (RouteCollectorProxy $group) {
+        $group->get('', 'User:index');
+        $group->get('/{id}', 'User:view');
+        $group->post('', 'User:create');
+        $group->put('/{id}', 'User:update');
+        $group->delete('/{id}', 'User:delete');
+    });
+
     return function (App $app) {
 // Add an app route
         $app->group('/api/v1', function(RouteCollectorProxy $group) {
@@ -52,7 +64,9 @@ return function (App $app) {
             //post method for creating new Ingredients - AW
             $group->post('', 'Ingredient:create');
 
-        });
+            //});   //No auth
+            //})->add(new MyAuthenticator());  //MyAuthentication
+    })->add(new BasicAuthenticator());  //BasicAuthenticator
 
 // Handle invalid routes
         $app->any('{route:.*}', function(Request $request, Response $response) {

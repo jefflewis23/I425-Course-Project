@@ -2,6 +2,7 @@
 /* Allyson West */
 
 use DI\Container;
+use RecipeStore\Controllers\UserController;
 
 
 return function (Container $container) {
@@ -42,6 +43,10 @@ return function (Container $container) {
         return new RecipeDietaryController();
     });
 
+    // Set a dependency called "User"
+    $container->set('User', function() {
+        return new UserController();
+    });
 
 
 
