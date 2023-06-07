@@ -18,7 +18,7 @@ class MyAuthenticator {
     * This method gets called automatically when the object is treated as a callable.
     */
     public function __invoke(Request $request, RequestHandler $handler) : Response {
-        //Username and password are stored in a header called "MyCollegeAPI-Authorization".
+        //Username and password are stored in a header called "RecipeStore-Authorization".
         if(!$request->hasHeader('RecipeStore-Authorization')) {
             $results = ['Status' => 'RecipeStore-Authorization header not found.'];
             return AuthenticationHelper::withJson($results, 401);
