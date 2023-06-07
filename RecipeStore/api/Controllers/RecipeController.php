@@ -10,7 +10,7 @@ use RecipeStore\Validation\Validator;
 Class RecipeController{
     //Retrieve all the classes
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = Recipe::getRecipes();
+        $results = Recipe::getRecipes($request);
         return Helper::withJson($response, $results, 200);
     }
 
@@ -47,7 +47,6 @@ Class RecipeController{
 
         return Helper::withJson($response, $results, 200);
     }
-
 
 
 

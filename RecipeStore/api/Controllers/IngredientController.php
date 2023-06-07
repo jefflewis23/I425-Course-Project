@@ -10,7 +10,7 @@ use RecipeStore\Validation\Validator;
 Class IngredientController {
     //Retrieve all the ingredients
     public function index(Request $request, Response $response, array $args) : Response {
-        $results = Ingredient::getIngredients();
+        $results = Ingredient::getIngredients($request);
         return Helper::withJson($response, $results, 200);
     }
 
